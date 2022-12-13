@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package inicial;
+package controlador;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -19,14 +19,14 @@ import javax.swing.JFileChooser;
  *
  * @author Santiago Roncancio González
  */
-public class Main {
+public class LecturaArchivo {
 
     static List<String> lista = new ArrayList<>();
     String vector[] = new String[60];
     int cont = 0;
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        Main lee = new Main();
+        LecturaArchivo lee = new LecturaArchivo();
         lee.presentar();
     }
 

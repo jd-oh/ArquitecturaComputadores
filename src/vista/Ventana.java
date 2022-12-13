@@ -5,6 +5,8 @@
  */
 package vista;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author SRG98
@@ -16,6 +18,8 @@ public class Ventana extends javax.swing.JFrame {
      */
     public Ventana() {
         initComponents();
+        //fondo.setIcon( new ImageIcon( getClass().getResource( "/imagenes/fondo.png" ) ) );
+        //fondo.setBounds( 0, 0, fondo.getIcon().getIconWidth(), fondo.getIcon().getIconHeight() );
     }
 
     /**
@@ -27,21 +31,67 @@ public class Ventana extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        spEntrada = new javax.swing.JScrollPane();
+        txtEntrada = new javax.swing.JTextArea();
+        btnEntrada = new javax.swing.JButton();
+        spSalida = new javax.swing.JScrollPane();
+        txtSalida = new javax.swing.JTextArea();
+        txtOP2 = new javax.swing.JTextField();
+        txtIR = new javax.swing.JTextField();
+        txtOP1 = new javax.swing.JTextField();
+        txtResultadoALU = new javax.swing.JTextField();
+        txtPC = new javax.swing.JTextField();
+        txtMBR = new javax.swing.JTextField();
+        txtMAR = new javax.swing.JTextField();
+        fondo = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(3088, 1416));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtEntrada.setColumns(20);
+        txtEntrada.setRows(5);
+        spEntrada.setViewportView(txtEntrada);
+
+        getContentPane().add(spEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 100, 260, 260));
+
+        btnEntrada.setBackground(new java.awt.Color(102, 0, 0));
+        btnEntrada.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
+        btnEntrada.setForeground(new java.awt.Color(255, 255, 255));
+        btnEntrada.setText("Seleccionar archivo");
+        btnEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntradaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 70, 260, 20));
+
+        txtSalida.setColumns(20);
+        txtSalida.setRows(5);
+        txtSalida.setAlignmentX(1.0F);
+        txtSalida.setAlignmentY(1.0F);
+        spSalida.setViewportView(txtSalida);
+
+        getContentPane().add(spSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 430, 270, 70));
+        getContentPane().add(txtOP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 60, 28));
+        getContentPane().add(txtIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 280, 60, 28));
+        getContentPane().add(txtOP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 60, 28));
+        getContentPane().add(txtResultadoALU, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 60, 28));
+        getContentPane().add(txtPC, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 430, 60, 28));
+        getContentPane().add(txtMBR, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 280, 60, 28));
+        getContentPane().add(txtMAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 430, 60, 28));
+
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.png"))); // NOI18N
+        fondo.setPreferredSize(new java.awt.Dimension(1500, 688));
+        fondo.setRequestFocusEnabled(false);
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEntradaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +129,18 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEntrada;
+    private javax.swing.JLabel fondo;
+    private javax.swing.JScrollPane spEntrada;
+    private javax.swing.JScrollPane spSalida;
+    private javax.swing.JTextArea txtEntrada;
+    private javax.swing.JTextField txtIR;
+    private javax.swing.JTextField txtMAR;
+    private javax.swing.JTextField txtMBR;
+    private javax.swing.JTextField txtOP1;
+    private javax.swing.JTextField txtOP2;
+    private javax.swing.JTextField txtPC;
+    private javax.swing.JTextField txtResultadoALU;
+    private javax.swing.JTextArea txtSalida;
     // End of variables declaration//GEN-END:variables
 }
