@@ -10,5 +10,19 @@ package modelo;
  * @author SRG98
  */
 public class MBR {
+    private int datos [] = {};
+
+    public MBR(int [] datos) {
+        this.datos = datos;
+    }
+
+    public int[] getDatos() {
+        return datos;
+    }
+
+    public void setDatos(int[] datos) {
+        this.datos = datos;
+    }
+    
     
 }

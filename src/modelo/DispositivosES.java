@@ -10,5 +10,31 @@ package modelo;
  * @author SRG98
  */
 public class DispositivosES {
+
+    String entrada;
+    String salida;
+
+    public DispositivosES(String entrada, String salida) {
+        this.entrada = entrada;
+        this.salida = salida;
+    }
+
+    public String getEntrada() {
+        return entrada;
+    }
+
+    public void setEntrada(String entrada) {
+        this.entrada = entrada;
+    }
+
+    public String getSalida() {
+        return salida;
+    }
+
+    public void setSalida(String salida) {
+        this.salida = salida;
+    }
+    
+    
     
 }

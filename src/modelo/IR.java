@@ -10,5 +10,29 @@ package modelo;
  * @author SRG98
  */
 public class IR {
+    String instruccion;
+    String estado;
+
+    public IR(String instruccion, String estado) {
+        this.instruccion = instruccion;
+        this.estado = estado;
+    }
+
+    public String getInstruccion() {
+        return instruccion;
+    }
+
+    public void setInstruccion(String instruccion) {
+        this.instruccion = instruccion;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
     
 }

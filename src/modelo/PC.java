@@ -10,5 +10,19 @@ package modelo;
  * @author SRG98
  */
 public class PC {
+    String instruccion;
+
+    public PC(String instruccion) {
+        this.instruccion = instruccion;
+    }
+
+    public String getInstruccion() {
+        return instruccion;
+    }
+
+    public void setInstruccion(String instruccion) {
+        this.instruccion = instruccion;
+    }
+    
     
 }
