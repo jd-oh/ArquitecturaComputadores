@@ -10,5 +10,20 @@ package modelo;
  * @author SRG98
  */
 public class UnidadControl {
+
+    String decodificador;
+
+    public UnidadControl(String decodificador) {
+        this.decodificador = decodificador;
+    }
+
+
+    public String getDecodificador() {
+        return decodificador;
+    }
+
+    public void setDecodificador(String decodificador) {
+        this.decodificador = decodificador;
+    }
     
 }

@@ -5,18 +5,20 @@
  */
 package vista;
 
-import javax.swing.ImageIcon;
-
+import modelo.*;
 /**
  *
  * @author SRG98
  */
-public class Ventana extends javax.swing.JFrame {
-
+public class Computador extends javax.swing.JFrame {
+    private CPU cpu;
+    private ModuloES moduloES;
+    private MemoriaPrincipal memoriaPrincipal;
+    private UnidadControl unidadControl;
     /**
      * Creates new form Ventana
      */
-    public Ventana() {
+    public Computador() {
         initComponents();
         //fondo.setIcon( new ImageIcon( getClass().getResource( "/imagenes/fondo.png" ) ) );
         //fondo.setBounds( 0, 0, fondo.getIcon().getIconWidth(), fondo.getIcon().getIconHeight() );
@@ -110,20 +112,21 @@ public class Ventana extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ventana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Computador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ventana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Computador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ventana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Computador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ventana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Computador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Ventana().setVisible(true);
+                new Computador().setVisible(true);
             }
         });
     }
