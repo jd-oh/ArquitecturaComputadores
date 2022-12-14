@@ -7,28 +7,57 @@ package vista;
 
 import controlador.LectorArchivo;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import modelo.*;
+
 /**
  *
  * @author SRG98
  */
 public class Computador extends javax.swing.JFrame {
+
     private CPU cpu;
+    private ALU alu;
     private ModuloES moduloES;
     private MemoriaPrincipal memoriaPrincipal;
     private UnidadControl unidadControl;
     private LectorArchivo lector;
+    private List<String> listaLineas;
     private int contadorSiguiente;
+    private int contadorLineas;
+
     /**
      * Creates new form Ventana
      */
     public Computador() {
         initComponents();
-        lector=new LectorArchivo();
-        contadorSiguiente=0;
-        
-        
+        lector = new LectorArchivo();
+        alu = new ALU(0, 0, 0);
+        cpu = new CPU(alu, "-1", "-1", "-1", "3");
+        moduloES = new ModuloES("", "");
+        HashMap<String, String> datosDireccion = new HashMap<>();
+        memoriaPrincipal = new MemoriaPrincipal(500, datosDireccion);
+        unidadControl = new UnidadControl("");
+        contadorSiguiente = 0;
+        contadorLineas = 0;
+        listaLineas = new ArrayList<>();
+        pbIOMemoria.setVisible(false);
+        pbUnidadControlBusControl.setVisible(false);
+        pb2UnidadControlBusControl.setVisible(false);
+        pb2UnidadControlPC.setVisible(false);
+        pbUnidadControlPC.setVisible(false);
+        pbPCMAR.setVisible(false);
+        pbMARBusDireccion.setVisible(false);
+        pb2MARBusDireccion.setVisible(false);
+        pb2MemoriaMBR.setVisible(false);
+        pbMemoriaMBR.setVisible(false);
+        pbMBRIR.setVisible(false);
+        pb3MARBusDireccion.setVisible(false);
+        pb3MemoriaMBR.setVisible(false);
+        pb3UnidadControlBusControl.setVisible(false);
+        pb2IOMemoria.setVisible(false);
     }
 
     /**
@@ -53,6 +82,21 @@ public class Computador extends javax.swing.JFrame {
         txtMBR = new javax.swing.JTextField();
         txtMAR = new javax.swing.JTextField();
         btnEntrada = new javax.swing.JButton();
+        pb2IOMemoria = new javax.swing.JProgressBar();
+        pb3MemoriaMBR = new javax.swing.JProgressBar();
+        pb3MARBusDireccion = new javax.swing.JProgressBar();
+        pb3UnidadControlBusControl = new javax.swing.JProgressBar();
+        pbMBRIR = new javax.swing.JProgressBar();
+        pb2MemoriaMBR = new javax.swing.JProgressBar();
+        pbMemoriaMBR = new javax.swing.JProgressBar();
+        pb2MARBusDireccion = new javax.swing.JProgressBar();
+        pbMARBusDireccion = new javax.swing.JProgressBar();
+        pbPCMAR = new javax.swing.JProgressBar();
+        pb2UnidadControlPC = new javax.swing.JProgressBar();
+        pbUnidadControlPC = new javax.swing.JProgressBar();
+        pb2UnidadControlBusControl = new javax.swing.JProgressBar();
+        pbIOMemoria = new javax.swing.JProgressBar();
+        pbUnidadControlBusControl = new javax.swing.JProgressBar();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,7 +104,10 @@ public class Computador extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtEntrada.setEditable(false);
+        txtEntrada.setBackground(new java.awt.Color(0, 0, 0));
         txtEntrada.setColumns(20);
+        txtEntrada.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtEntrada.setForeground(new java.awt.Color(0, 204, 0));
         txtEntrada.setRows(5);
         spEntrada.setViewportView(txtEntrada);
 
@@ -69,29 +116,32 @@ public class Computador extends javax.swing.JFrame {
         btnSiguiente.setBackground(new java.awt.Color(102, 0, 0));
         btnSiguiente.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
         btnSiguiente.setForeground(new java.awt.Color(255, 255, 255));
-        btnSiguiente.setText("Siguiente");
+        btnSiguiente.setText("Next");
         btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSiguienteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 610, 110, 60));
+        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 610, 70, 60));
 
         txtSalida.setEditable(false);
+        txtSalida.setBackground(new java.awt.Color(0, 0, 0));
         txtSalida.setColumns(20);
+        txtSalida.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        txtSalida.setForeground(new java.awt.Color(0, 204, 0));
         txtSalida.setRows(5);
         txtSalida.setAlignmentX(1.0F);
         txtSalida.setAlignmentY(1.0F);
         spSalida.setViewportView(txtSalida);
 
         getContentPane().add(spSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 430, 270, 70));
-        getContentPane().add(txtOP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 60, 28));
-        getContentPane().add(txtIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 280, 60, 28));
+        getContentPane().add(txtOP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(433, 139, 60, 28));
+        getContentPane().add(txtIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(722, 283, 60, 28));
         getContentPane().add(txtOP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 60, 28));
-        getContentPane().add(txtResultadoALU, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 60, 28));
-        getContentPane().add(txtPC, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 430, 60, 28));
-        getContentPane().add(txtMBR, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 280, 60, 28));
-        getContentPane().add(txtMAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 430, 60, 28));
+        getContentPane().add(txtResultadoALU, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 276, 60, 28));
+        getContentPane().add(txtPC, new org.netbeans.lib.awtextra.AbsoluteConstraints(715, 426, 60, 28));
+        getContentPane().add(txtMBR, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 283, 60, 28));
+        getContentPane().add(txtMAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(565, 426, 60, 28));
 
         btnEntrada.setBackground(new java.awt.Color(102, 0, 0));
         btnEntrada.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
@@ -103,6 +153,21 @@ public class Computador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 70, 260, 20));
+        getContentPane().add(pb2IOMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 530, 30, 140));
+        getContentPane().add(pb3MemoriaMBR, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 450, 30, 220));
+        getContentPane().add(pb3MARBusDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 450, 30, 170));
+        getContentPane().add(pb3UnidadControlBusControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 440, 30, 140));
+        getContentPane().add(pbMBRIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 60, 20));
+        getContentPane().add(pb2MemoriaMBR, new org.netbeans.lib.awtextra.AbsoluteConstraints(467, 290, 20, 370));
+        getContentPane().add(pbMemoriaMBR, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 642, 380, 30));
+        getContentPane().add(pb2MARBusDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 592, 440, 30));
+        getContentPane().add(pbMARBusDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(582, 450, 20, 170));
+        getContentPane().add(pbPCMAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 430, 60, 20));
+        getContentPane().add(pb2UnidadControlPC, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 430, 60, 20));
+        getContentPane().add(pbUnidadControlPC, new org.netbeans.lib.awtextra.AbsoluteConstraints(844, 320, 20, 130));
+        getContentPane().add(pb2UnidadControlBusControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 546, 720, 30));
+        getContentPane().add(pbIOMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 643, 1140, 30));
+        getContentPane().add(pbUnidadControlBusControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 260, 20, 310));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.png"))); // NOI18N
         fondo.setPreferredSize(new java.awt.Dimension(1500, 688));
@@ -113,43 +178,327 @@ public class Computador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-    contadorSiguiente=+1; 
-    
-    if(contadorSiguiente==1){
-        
-    }
+
+        if (contadorSiguiente == 13) {
+            contadorLineas++;
+            contadorSiguiente = 2;
+        }
+        String linea = "";
+        String[] lineaSeparada = new String[4];
+        String[] resultadoYCodop = new String[2];
+        int resultado = -1;
+        String codop = "";
+        String variable = "";
+
+        contadorSiguiente++;
+
+        if (contadorLineas < listaLineas.size()) {
+            linea = listaLineas.get(contadorLineas);
+            lineaSeparada = separarDatos(linea);
+            variable = lineaSeparada[1];
+            resultadoYCodop = interpretarOperador(lineaSeparada[0], lineaSeparada[2], lineaSeparada[3]);
+            resultado = Integer.parseInt(resultadoYCodop[0]);
+            codop = resultadoYCodop[1];
+            // System.out.println("op1 paso 0: "+resultadoYCodop[2]+" linea: "+contadorLineas);
+            //System.out.println("lineaseparada: "+lineaSeparada[1]);
+        } else {
+            btnSiguiente.setVisible(false);
+            //System.exit(0);
+        }
+
+        //La entrada se guarda en la memoria
+        if (contadorSiguiente == 1) {
+            pbIOMemoria.setVisible(true);
+            pb2IOMemoria.setVisible(true);
+            pb3MemoriaMBR.setVisible(true);
+            pbIOMemoria.setValue(100);
+            pb2IOMemoria.setValue(100);
+            pb3MemoriaMBR.setValue(100);
+
+        }
+        //La unidad de control manda señal a PC para mostrar la siguiente instruccion instruccion
+        if (contadorSiguiente == 2) {
+            pbIOMemoria.setVisible(false);
+            pb2IOMemoria.setVisible(false);
+            pb3MemoriaMBR.setVisible(false);
+            pbUnidadControlPC.setVisible(true);
+            pb2UnidadControlPC.setVisible(true);
+            pbUnidadControlPC.setVisible(true);
+
+            pb2UnidadControlPC.setValue(100);
+            pbUnidadControlPC.setValue(100);
+            mostrarDatosPC(cpu);
+
+        }
+        //PC manda su valor a MAR
+        if (contadorSiguiente == 3) {
+
+            pbIOMemoria.setVisible(false);
+            pb2UnidadControlPC.setVisible(false);
+            pbUnidadControlPC.setVisible(false);
+            pbPCMAR.setVisible(true);
+            pbPCMAR.setValue(100);
+            mostrarDatosMAR(cpu);
+
+        }
+        //Unidad de control manda señal a la memoria para leer la dirección de MAR
+        if (contadorSiguiente == 4) {
+            pbPCMAR.setVisible(false);
+            pbUnidadControlBusControl.setVisible(true);
+            pb3UnidadControlBusControl.setVisible(true);
+            pb2UnidadControlBusControl.setVisible(true);
+            pbUnidadControlBusControl.setValue(100);
+            pb2UnidadControlBusControl.setValue(100);
+            pb3UnidadControlBusControl.setValue(100);
+        }
+        //MAR envia la direccion a buscar en la memoria 
+        if (contadorSiguiente == 5) {
+
+            pbUnidadControlBusControl.setVisible(false);
+            pb2UnidadControlBusControl.setVisible(false);
+            pb3UnidadControlBusControl.setVisible(false);
+            pbMARBusDireccion.setVisible(true);
+            pb2MARBusDireccion.setVisible(true);
+            pb3MARBusDireccion.setVisible(true);
+            pbMARBusDireccion.setValue(100);
+            pb2MARBusDireccion.setValue(100);
+            pb3MARBusDireccion.setValue(100);
+
+        }
+
+        //La memoria manda el operador de la dirección especificada a MBR
+        if (contadorSiguiente == 6) {
+            pbMARBusDireccion.setVisible(false);
+            pb2MARBusDireccion.setVisible(false);
+            pb3MARBusDireccion.setVisible(false);
+
+            pb2MemoriaMBR.setVisible(true);
+            pbMemoriaMBR.setVisible(true);
+            pb3MemoriaMBR.setVisible(true);
+            pb2MemoriaMBR.setValue(100);
+            pbMemoriaMBR.setValue(100);
+            txtMBR.setText(codop);
+
+            //Se incrementa PC
+            mostrarDatosPC(cpu);
+            pbUnidadControlPC.setVisible(true);
+            pb2UnidadControlPC.setVisible(true);
+        }
+
+        //MBR guarda su valor en IR
+        if (contadorSiguiente == 7) {
+            pb2MemoriaMBR.setVisible(false);
+            pbMemoriaMBR.setVisible(false);
+            pb3MemoriaMBR.setVisible(false);
+            pbUnidadControlPC.setVisible(false);
+            pb2UnidadControlPC.setVisible(false);
+            pbMBRIR.setVisible(true);
+            pbMBRIR.setValue(100);
+            txtIR.setText(codop);
+        }
+
+        //La memomria manda los datos de los operadores a MBR y MBR los pasa a la ALU.
+        if (contadorSiguiente == 8) {
+            pbMBRIR.setVisible(false);
+            
+            String op2Binario = convertirDecimalABinario(Integer.parseInt(resultadoYCodop[3]));
+            String op1Binario = convertirDecimalABinario(Integer.parseInt(resultadoYCodop[2]));
+            //System.out.println("op1 paso 8: "+resultadoYCodop[2]+" linea: "+contadorLineas);
+            //System.out.println("op2Binario: "+op2Binario+" op1Binario: "+op1Binario);
+            //System.out.println("");
+            String resultado1 = convertirDecimalABinario(resultado);
+            txtMBR.setText(resultado1);
+            txtOP2.setText(op2Binario);
+            txtOP1.setText(op1Binario);
+            txtResultadoALU.setText(resultado1);
+        }
+        //Nuevamente MBR pasa el ultimo dato captado a IR
+        if (contadorSiguiente == 9) {
+            
+            pbMBRIR.setVisible(true);
+            txtIR.setText(txtMBR.getText());
+        }
+        //La unidad de control manda una señal a la memoria para un WRITE
+        if (contadorSiguiente == 10) {
+            pb3UnidadControlBusControl.setVisible(true);
+            pbMBRIR.setVisible(false);
+            pbUnidadControlBusControl.setVisible(true);
+            pb2UnidadControlBusControl.setVisible(true);
+        }
+
+        //MBR pasa el resultado de la ALU a la memoria.
+        if (contadorSiguiente == 11) {
+            pb3UnidadControlBusControl.setVisible(false);
+            pb3MemoriaMBR.setVisible(true);
+            pb2MemoriaMBR.setVisible(true);
+            pbMemoriaMBR.setVisible(true);
+            pbUnidadControlBusControl.setVisible(false);
+            pb2UnidadControlBusControl.setVisible(false);
+            memoriaPrincipal.getDatosDireccion().put(txtMAR.getText(), txtMBR.getText());
+            memoriaPrincipal.getDireccionVariable().put(txtMAR.getText(), variable);
+        }
+
+        //Desde la memoria el resultado va hacia la salida  
+        if (contadorSiguiente == 12) {
+            pb2MemoriaMBR.setVisible(false);
+            pbMemoriaMBR.setVisible(false);
+            pbIOMemoria.setVisible(true);
+            pb3MemoriaMBR.setVisible(true);
+            pb2IOMemoria.setVisible(true);
+        }
+        //Se muestra la salida en formato decimal
+        if (contadorSiguiente == 13) {
+            pb3MemoriaMBR.setVisible(false);
+            pbIOMemoria.setVisible(false);
+            pb2IOMemoria.setVisible(false);
+
+            String unionSalida = "";
+
+            for (Map.Entry<String, String> mapa : memoriaPrincipal.getDatosDireccion().entrySet()) {
+
+                int valorDecimal = convertirBinarioADecimal(mapa.getValue());
+                unionSalida += "\n" + valorDecimal;
+
+            }
+
+            txtSalida.setText(unionSalida);
+
+        }
+
+
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaActionPerformed
-        
-        List<String> listaLineas=new ArrayList<>();
+
         listaLineas = lector.presentar();
-        String union="";
+        String union = "";
         for (String linea : listaLineas) {
-            union+= "\n" + linea;
+            union += "\n" + linea;
         }
-        txtEntrada.setText(union);  
+        txtEntrada.setText(union);
     }//GEN-LAST:event_btnEntradaActionPerformed
 
-    private void mostrarDatosALU(){
-    
-    }
-    
-    private void mostrarDatosMBR(){
-        
-    }
-    
-    private String[] separarDatos(ArrayList<String> listaLineas){
-        String[] lineaSeparada=new String[3];
-        
-        for (String linea : listaLineas) {
-            lineaSeparada=linea.split(" ");
-            
+    /**
+     *
+     * @param operador
+     * @param op1
+     * @param op2
+     * @return
+     */
+    private String[] interpretarOperador(String operador, String op1, String op2) {
+        int oper1 = -1;
+        int oper2 = -1;
+        String binario="";
+        if (isNumeric(op1) == false) {
+            for (Map.Entry<String, String> mapaDirVar : memoriaPrincipal.getDireccionVariable().entrySet()) {
+          
+                if (mapaDirVar.getValue().equals(op1)) {
+
+                    for (Map.Entry<String, String> mapaDirDat : memoriaPrincipal.getDatosDireccion().entrySet()) {
+                        if (mapaDirVar.getKey().equals(mapaDirDat.getKey())) {
+                            oper1=convertirBinarioADecimal(mapaDirDat.getValue());
+                            
+                        }
+                    }
+
+                }
+            }
+        } else {
+            oper1 = Integer.parseInt(op1);
         }
+        if (isNumeric(op2) == false) {
+            for (Map.Entry<String, String> mapaDirVar : memoriaPrincipal.getDireccionVariable().entrySet()) {
+                if (mapaDirVar.getKey().equals(op2)) {
+                    for (Map.Entry<String, String> mapaDirDat : memoriaPrincipal.getDatosDireccion().entrySet()) {
+                        if (mapaDirVar.getKey().equals(mapaDirDat.getKey())) {
+                            oper2=convertirBinarioADecimal(mapaDirDat.getValue());
+                        }
+                    }
+                }
+            }
+        } else {
+            oper2 = Integer.parseInt(op2);
+        }
+
+        
+        String[] resultado = new String[4];
+        resultado[2] = Integer.toString(oper1);
+        resultado[3] = Integer.toString(oper2);
+        // System.out.println(resultado[2]);
+
+        if (operador.equals("ADD")) {
+            resultado[0] = Integer.toString(oper1 + oper2);
+            resultado[1] = "0000";
+        } else if (operador.equals("SUB")) {
+            resultado[0] = Integer.toString(oper1 - oper2);
+            resultado[1] = "0001";
+        } else if (operador.equals("MUL")) {
+            resultado[0] = Integer.toString(oper1 * oper2);
+            resultado[1] = "0010";
+        } else if (operador.equals("DIV")) {
+            resultado[0] = Integer.toString(oper1 / oper2);
+            resultado[1] = "0011";
+        }
+
+        return resultado;
+    }
+
+    private void mostrarDatosPC(CPU cpu) {
+
+        int pc = Integer.parseInt(cpu.getPC());
+        pc++;
+        cpu.setPC(Integer.toString(pc));
+        String pcBinario = convertirDecimalABinario(pc);
+
+        txtPC.setText(pcBinario);
+
+    }
+
+    private void mostrarDatosMAR(CPU cpu) {
+
+        int mar = Integer.parseInt(cpu.getPC());
+        String marBinario = convertirDecimalABinario(mar);
+
+        txtMAR.setText(marBinario);
+
+    }
+
+    private int convertirBinarioADecimal(String binario) {
+
+        int decimal = Integer.parseInt(binario, 2);
+        return decimal;
+
+    }
+
+    public static boolean isNumeric(String s) {
+        if (s == null || s.equals("")) {
+            return false;
+        }
+
+        return s.chars().allMatch(Character::isDigit);
+    }
+
+    /**
+     * Separa los datos de una linea leida por el lector
+     *
+     * @param linea
+     * @return lineaSeparada: En la primera posición se guarda el operacion, en
+     * la segunda la variable en la que se guardará, en la tercera el operador 1
+     * y en la cuarta el operador 2.
+     */
+    private String[] separarDatos(String linea) {
+        String[] lineaSeparada = new String[4];
+        lineaSeparada = linea.split(" ");
+
         return lineaSeparada;
     }
-    
-    
+
+    public static String convertirDecimalABinario(long decimal) {
+        return Long.toBinaryString(decimal);
+    }
+
+
+
     /**
      * @param args the command line arguments
      */
@@ -190,6 +539,21 @@ public class Computador extends javax.swing.JFrame {
     private javax.swing.JButton btnEntrada;
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JLabel fondo;
+    private javax.swing.JProgressBar pb2IOMemoria;
+    private javax.swing.JProgressBar pb2MARBusDireccion;
+    private javax.swing.JProgressBar pb2MemoriaMBR;
+    private javax.swing.JProgressBar pb2UnidadControlBusControl;
+    private javax.swing.JProgressBar pb2UnidadControlPC;
+    private javax.swing.JProgressBar pb3MARBusDireccion;
+    private javax.swing.JProgressBar pb3MemoriaMBR;
+    private javax.swing.JProgressBar pb3UnidadControlBusControl;
+    private javax.swing.JProgressBar pbIOMemoria;
+    private javax.swing.JProgressBar pbMARBusDireccion;
+    private javax.swing.JProgressBar pbMBRIR;
+    private javax.swing.JProgressBar pbMemoriaMBR;
+    private javax.swing.JProgressBar pbPCMAR;
+    private javax.swing.JProgressBar pbUnidadControlBusControl;
+    private javax.swing.JProgressBar pbUnidadControlPC;
     private javax.swing.JScrollPane spEntrada;
     private javax.swing.JScrollPane spSalida;
     private javax.swing.JTextArea txtEntrada;

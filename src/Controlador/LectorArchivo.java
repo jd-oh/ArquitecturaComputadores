@@ -31,7 +31,7 @@ public class LectorArchivo {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
 
-        LecturaArchivo lee = new LecturaArchivo();
+        LectorArchivo lee = new LectorArchivo();
 
 
         lee.presentar();

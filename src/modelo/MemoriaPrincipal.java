@@ -5,7 +5,6 @@
  */
 package modelo;
 
-import java.util.ArrayList;
 
 import java.util.HashMap;
 /**
@@ -14,10 +13,12 @@ import java.util.HashMap;
  */
 public class MemoriaPrincipal {
     private int capacidad;
-    private HashMap<Long, Long> datosDireccion = new HashMap<>(); //Izquierda dato, derecha dirección
+    private HashMap<String, String> direccionDatos = new HashMap<>(); //Izquierda direccion, derecha dato
+    private HashMap<String, String> direccionVariable=new HashMap<>();  //Izquierda direccion, derecha variable
 
-    public MemoriaPrincipal(int capacidad) {
+    public MemoriaPrincipal(int capacidad, HashMap<String, String> direccionDatos) {
         this.capacidad = capacidad;
+        this.direccionDatos=direccionDatos;
     }
 
     public int getCapacidad() {
@@ -28,13 +29,26 @@ public class MemoriaPrincipal {
         this.capacidad = capacidad;
     }
 
-    public HashMap<Long, Long> getDatosDireccion() {
-        return datosDireccion;
+    public HashMap<String, String> getDatosDireccion() {
+        return direccionDatos;
     }
 
-    public void setDatosDireccion(HashMap<Long, Long> datosDireccion) {
-        this.datosDireccion = datosDireccion;
+    public void setDatosDireccion(HashMap<String, String> datosDireccion) {
+        this.direccionDatos = datosDireccion;
     }
+
+
+    public HashMap<String, String> getDireccionVariable() {
+        return direccionVariable;
+    }
+
+    public void setDireccionVariable(HashMap<String, String> direccionVariable) {
+        this.direccionVariable = direccionVariable;
+    }
+    
+    
+
+    
     
     
     
