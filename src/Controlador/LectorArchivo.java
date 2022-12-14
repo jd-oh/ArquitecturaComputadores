@@ -25,7 +25,7 @@ import javax.swing.JFileChooser;
 public class LectorArchivo {
 
 
-  /*  static List<String> lista = new ArrayList<>();
+    static List<String> lista = new ArrayList<>();
     String vector[] = new String[60];
     int cont = 0;
 
@@ -37,7 +37,7 @@ public class LectorArchivo {
         lee.presentar();
     }
 
-    public String[] presentar() {
+    public List<String> presentar() {
         JFileChooser buscador = new JFileChooser();
         buscador.showOpenDialog(buscador);
 
@@ -52,21 +52,21 @@ public class LectorArchivo {
 
             while ((lineas = buffer.readLine()) != null) {
                 lista.add(lineas);
-                vector[cont] = lineas;
-                cont++;
+                //vector[cont] = lineas;
+                //cont++;
             }
             entrada.close();
         } catch (Exception e) {
             System.out.println("ERROR");
         }
-        String[] segundo = new String[cont];
+        //String[] segundo = new String[cont];
 
-        for (int i = 0; i < segundo.length; i++) {
-            segundo[i] = vector[i];
-        }
-        System.out.println();
+//        //for (int i = 0; i < segundo.length; i++) {
+//            segundo[i] = vector[i];
+//        }
+//        System.out.println();
 
-        return segundo;
-    } */
+        return lista;
+    } 
     
 }
