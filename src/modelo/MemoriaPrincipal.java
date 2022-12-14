@@ -5,17 +5,19 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+
+import java.util.HashMap;
 /**
  *
  * @author SRG98
  */
 public class MemoriaPrincipal {
     private int capacidad;
-    private int dato [] = {};
+    private HashMap<Long, Long> datosDireccion = new HashMap<>(); //Izquierda dato, derecha dirección
 
-    public MemoriaPrincipal(int capacidad, int [] dato) {
+    public MemoriaPrincipal(int capacidad) {
         this.capacidad = capacidad;
-        this.dato = dato;
     }
 
     public int getCapacidad() {
@@ -26,13 +28,14 @@ public class MemoriaPrincipal {
         this.capacidad = capacidad;
     }
 
-    public int[] getDato() {
-        return dato;
+    public HashMap<Long, Long> getDatosDireccion() {
+        return datosDireccion;
     }
 
-    public void setDato(int[] dato) {
-        this.dato = dato;
+    public void setDatosDireccion(HashMap<Long, Long> datosDireccion) {
+        this.datosDireccion = datosDireccion;
     }
+    
     
     
     

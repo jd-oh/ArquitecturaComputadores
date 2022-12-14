@@ -5,6 +5,9 @@
  */
 package vista;
 
+import controlador.LectorArchivo;
+import java.util.ArrayList;
+import java.util.List;
 import modelo.*;
 /**
  *
@@ -15,13 +18,17 @@ public class Computador extends javax.swing.JFrame {
     private ModuloES moduloES;
     private MemoriaPrincipal memoriaPrincipal;
     private UnidadControl unidadControl;
+    private LectorArchivo lector;
+    private int contadorSiguiente;
     /**
      * Creates new form Ventana
      */
     public Computador() {
         initComponents();
-        //fondo.setIcon( new ImageIcon( getClass().getResource( "/imagenes/fondo.png" ) ) );
-        //fondo.setBounds( 0, 0, fondo.getIcon().getIconWidth(), fondo.getIcon().getIconHeight() );
+        lector=new LectorArchivo();
+        contadorSiguiente=0;
+        
+        
     }
 
     /**
@@ -35,7 +42,7 @@ public class Computador extends javax.swing.JFrame {
 
         spEntrada = new javax.swing.JScrollPane();
         txtEntrada = new javax.swing.JTextArea();
-        btnEntrada = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
         spSalida = new javax.swing.JScrollPane();
         txtSalida = new javax.swing.JTextArea();
         txtOP2 = new javax.swing.JTextField();
@@ -45,29 +52,32 @@ public class Computador extends javax.swing.JFrame {
         txtPC = new javax.swing.JTextField();
         txtMBR = new javax.swing.JTextField();
         txtMAR = new javax.swing.JTextField();
+        btnEntrada = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(3088, 1416));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtEntrada.setEditable(false);
         txtEntrada.setColumns(20);
         txtEntrada.setRows(5);
         spEntrada.setViewportView(txtEntrada);
 
         getContentPane().add(spEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 100, 260, 260));
 
-        btnEntrada.setBackground(new java.awt.Color(102, 0, 0));
-        btnEntrada.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
-        btnEntrada.setForeground(new java.awt.Color(255, 255, 255));
-        btnEntrada.setText("Seleccionar archivo");
-        btnEntrada.addActionListener(new java.awt.event.ActionListener() {
+        btnSiguiente.setBackground(new java.awt.Color(102, 0, 0));
+        btnSiguiente.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
+        btnSiguiente.setForeground(new java.awt.Color(255, 255, 255));
+        btnSiguiente.setText("Siguiente");
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEntradaActionPerformed(evt);
+                btnSiguienteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 70, 260, 20));
+        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 610, 110, 60));
 
+        txtSalida.setEditable(false);
         txtSalida.setColumns(20);
         txtSalida.setRows(5);
         txtSalida.setAlignmentX(1.0F);
@@ -83,6 +93,17 @@ public class Computador extends javax.swing.JFrame {
         getContentPane().add(txtMBR, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 280, 60, 28));
         getContentPane().add(txtMAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 430, 60, 28));
 
+        btnEntrada.setBackground(new java.awt.Color(102, 0, 0));
+        btnEntrada.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
+        btnEntrada.setForeground(new java.awt.Color(255, 255, 255));
+        btnEntrada.setText("Seleccionar archivo");
+        btnEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntradaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 70, 260, 20));
+
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.png"))); // NOI18N
         fondo.setPreferredSize(new java.awt.Dimension(1500, 688));
         fondo.setRequestFocusEnabled(false);
@@ -91,10 +112,44 @@ public class Computador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+    contadorSiguiente=+1; 
+    
+    if(contadorSiguiente==1){
+        
+    }
+    }//GEN-LAST:event_btnSiguienteActionPerformed
+
     private void btnEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaActionPerformed
-        // TODO add your handling code here:
+        
+        List<String> listaLineas=new ArrayList<>();
+        listaLineas = lector.presentar();
+        String union="";
+        for (String linea : listaLineas) {
+            union+= "\n" + linea;
+        }
+        txtEntrada.setText(union);  
     }//GEN-LAST:event_btnEntradaActionPerformed
 
+    private void mostrarDatosALU(){
+    
+    }
+    
+    private void mostrarDatosMBR(){
+        
+    }
+    
+    private String[] separarDatos(ArrayList<String> listaLineas){
+        String[] lineaSeparada=new String[3];
+        
+        for (String linea : listaLineas) {
+            lineaSeparada=linea.split(" ");
+            
+        }
+        return lineaSeparada;
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -133,6 +188,7 @@ public class Computador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrada;
+    private javax.swing.JButton btnSiguiente;
     private javax.swing.JLabel fondo;
     private javax.swing.JScrollPane spEntrada;
     private javax.swing.JScrollPane spSalida;

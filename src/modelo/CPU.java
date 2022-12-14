@@ -22,7 +22,16 @@ public class CPU {
         this.MAR = MAR;
         this.MBR = MBR;
         this.PC = PC;
+        alu=new ALU(-1,-1,-1);
+        
     }
+    
+//    public void enviarDatoMBRALU(String dato){
+//        if(alu.getOperador1()==-1){
+//            alu.setOperador1(dato);
+//        }
+//        
+//    }
 
     public ALU getAlu() {
         return alu;

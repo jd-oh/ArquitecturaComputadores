@@ -25,6 +25,9 @@ public class ALU {
     private int operador2;
     private int resultado;
 
+    public ALU() {
+    }
+
     public ALU(int operador1, int operador2, int resultado) {
         this.operador1 = operador1;
         this.operador2 = operador2;
